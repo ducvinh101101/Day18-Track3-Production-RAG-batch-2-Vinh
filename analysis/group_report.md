@@ -7,11 +7,11 @@
 
 | Tên | Module | Hoàn thành | Tests pass |
 |-----|--------|-----------|-----------|
-| Nguyễn Đức Vinh | M1: Chunking | ✓ | 13/13 |
-| Nguyễn Đức Vinh | M2: Hybrid Search | ✓ | 5/5 |
-| Nguyễn Đức Vinh | M3: Reranking | ✓ | 5/5 |
-| Nguyễn Đức Vinh | M4: Evaluation | ✓ | 4/4 |
-| Nguyễn Đức Vinh | M5: Enrichment | ✓ | 10/10 |
+| Mai Đức Vinh | M1: Chunking | ✓ | 13/13 |
+| Mai Đức Vinh | M2: Hybrid Search | ✓ | 5/5 |
+| Mai Đức Vinh | M3: Reranking | ✓ | 5/5 |
+| Mai Đức Vinh | M4: Evaluation | ✓ | 4/4 |
+| Mai Đức Vinh | M5: Enrichment | ✓ | 10/10 |
 
 ## Kết quả RAGAS
 

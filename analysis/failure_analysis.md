@@ -1,7 +1,7 @@
 # Failure Analysis — Lab 18: Production RAG
 
 **Nhóm:** Vinh Solo  
-**Thành viên:** Nguyễn Đức Vinh (M1, M2, M3, M4, M5)
+**Thành viên:** Mai Đức Vinh (M1, M2, M3, M4, M5)
 
 ---
 
