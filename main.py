@@ -7,8 +7,36 @@ Usage:
     python main.py
 """
 
-import json
+import sys
 import os
+import subprocess
+
+# Auto-detect local virtual environment python to avoid Python 3.13 incompatibilities
+def restart_with_venv():
+    is_in_venv = (
+        hasattr(sys, 'real_prefix') or 
+        (sys.base_prefix != sys.prefix) or 
+        ".venv" in sys.executable or 
+        "venv" in sys.executable
+    )
+    if is_in_venv:
+        return
+
+    venv_paths = [
+        os.path.join(".venv", "Scripts", "python.exe"),
+        os.path.join(".venv", "bin", "python"),
+        os.path.join("venv", "Scripts", "python.exe"),
+        os.path.join("venv", "bin", "python")
+    ]
+    for path in venv_paths:
+        if os.path.exists(path):
+            cmd = [path] + sys.argv
+            result = subprocess.run(cmd)
+            sys.exit(result.returncode)
+
+restart_with_venv()
+
+import json
 import time
 
 
@@ -36,7 +64,7 @@ def main():
     # Move reports to reports/
     for f in ["ragas_report.json", "naive_baseline_report.json"]:
         if os.path.exists(f):
-            os.rename(f, f"reports/{f}")
+            os.replace(f, f"reports/{f}")
 
     # Step 3: Comparison
     print("\n📌 STEP 3: Comparison")

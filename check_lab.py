@@ -54,9 +54,22 @@ def check_todos() -> int:
 def run_tests() -> tuple[int, int]:
     """Run pytest and return (passed, total)."""
     try:
+        # Auto-detect local virtual environment python to avoid Python version incompatibility
+        python_exe = sys.executable
+        venv_paths = [
+            os.path.join(".venv", "Scripts", "python.exe"),
+            os.path.join(".venv", "bin", "python"),
+            os.path.join("venv", "Scripts", "python.exe"),
+            os.path.join("venv", "bin", "python")
+        ]
+        for path in venv_paths:
+            if os.path.exists(path):
+                python_exe = path
+                break
+        
         result = subprocess.run(
-            [sys.executable, "-m", "pytest", "tests/", "-v", "--tb=no", "-q"],
-            capture_output=True, text=True, timeout=120,
+            [python_exe, "-m", "pytest", "tests/", "-v", "--tb=no", "-q"],
+            capture_output=True, text=True, timeout=180,
         )
         lines = result.stdout.strip().split("\n")
         summary = lines[-1] if lines else ""
@@ -64,11 +77,20 @@ def run_tests() -> tuple[int, int]:
         passed = total = 0
         for part in summary.split(","):
             part = part.strip()
-            if "passed" in part:
-                passed = int(part.split()[0])
-                total += passed
-            if "failed" in part:
-                total += int(part.split()[0])
+            tokens = part.split()
+            for idx, token in enumerate(tokens):
+                if token == "passed" and idx > 0:
+                    try:
+                        p_val = int(tokens[idx - 1])
+                        passed += p_val
+                        total += p_val
+                    except ValueError:
+                        pass
+                if token == "failed" and idx > 0:
+                    try:
+                        total += int(tokens[idx - 1])
+                    except ValueError:
+                        pass
         return passed, total
     except Exception as e:
         print(f"  ⚠️  pytest error: {e}")

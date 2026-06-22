@@ -8,6 +8,11 @@ load_dotenv()
 # --- API Keys ---
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 
+# --- LLM Gateway ---
+LLM_KEY = os.getenv("LLM_KEY", "")
+LLM_URL = os.getenv("LLM_URL", "https://ai-gateway.antco.ai/v1")
+LLM_MODEL = os.getenv("LLM_MODEL", "gemini-3-flash")
+
 # --- Qdrant ---
 QDRANT_HOST = "localhost"
 QDRANT_PORT = 6333
